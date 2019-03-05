@@ -1,0 +1,13 @@
+﻿  main.cpp
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(12): error C2065: 'maze': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(14): error C2065: 'maze': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(16): error C2065: 'ss': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(16): error C3861: 'maze': identifier not found
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(18): error C2065: 'ss': undeclared identifier
+  MazeGenerator.cpp
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(12): error C2065: 'maze': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(14): error C2065: 'maze': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(16): error C2065: 'ss': undeclared identifier
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(16): error C3861: 'maze': identifier not found
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.cpp(18): error C2065: 'ss': undeclared identifier
+  Generating Code...
