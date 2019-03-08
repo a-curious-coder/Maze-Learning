@@ -14,9 +14,14 @@ public:
 	void Generate(int rowCount, int colCount);
 	string toString();
 	bool IsBlocked(int row, int col);
+
+	int getRowCount() { return maze.size(); }
+	int getColCount() { return maze[0].size(); }
+	//int randomInt(int min, int max);
+
 private:
 	vector<vector<int>> maze;
-	vector<int>rowCount;
+	//vector<int>rowCount;
 };
 
 #endif

@@ -1,2 +1,5 @@
 ﻿  main.cpp
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.h(18): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\callu\source\repos\consolemaze\consolemaze\mazegenerator.h(19): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\callu\source\repos\consolemaze\consolemaze\main.cpp(22): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   ConsoleMaze.vcxproj -> C:\Users\callu\source\repos\ConsoleMaze\x64\Debug\ConsoleMaze.exe
