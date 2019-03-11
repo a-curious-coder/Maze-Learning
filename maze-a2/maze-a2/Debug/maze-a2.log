@@ -1,0 +1,10 @@
+﻿  mazegenerator.cpp
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(25): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(27): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(36): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(38): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(81): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(111): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-a2\maze-a2\mazegenerator.cpp(113): warning C4018: '<': signed/unsigned mismatch
+  maze-a2.vcxproj -> C:\Users\callu\Desktop\Programming practice\Attempt 2\maze-a2\Debug\maze-a2.exe
