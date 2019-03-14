@@ -18,7 +18,7 @@ int main()
 		mazegenerator generator;
 		generator.Generate(rowCount, colCount);
 		cout << generator.toString();
-		generator.getUnvisitedNeighbours(rowCount, colCount);
+		generator.getUnvisitedNeighbours();
 
 		cin >> quit;
 		if (quit == 'Q' || quit == 'q')
@@ -27,7 +27,6 @@ int main()
 		}
 		else 
 		{
-			cout << "\n\n\END";
 			system("pause");
 		}
 	}

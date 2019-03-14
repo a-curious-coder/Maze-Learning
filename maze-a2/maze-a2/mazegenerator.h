@@ -29,7 +29,7 @@ public:
 
 	int getColCount();
 
-	int getUnvisitedNeighbours(int row, int col);
+	vector<Tile> getUnvisitedNeighbours(const Tile& tile);
 
 	std::string toString();
 

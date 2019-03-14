@@ -73,29 +73,39 @@ int mazegenerator::getColCount()
 	return maze[0].size(); // Returns inner vector size
 } // DONE
 
-int mazegenerator::getUnvisitedNeighbours(int row, int col)
+vector<Tile> mazegenerator::getUnvisitedNeighbours(const Tile& tile)
 {
-	row = 0;
-	col = 0;
-	stringstream ss;
+	
+	vector<Tile> neighbours; // Vector to collect unvisited neighbours
+	int row = tile.row;
+	int col = tile.col;
+
 	srand(time(NULL)); // Generates a truly random number
-
-	std::stack<Tile> stack;
-	stack.push(maze[row][col]);
-	maze[row][col].visited = true;
-	for (int r = 0; r < getRowCount(); r++)
+	for (int i = 0; i >= getRowCount() && i >= getColCount(); i++)
 	{
-		for (int c = 0; c < getColCount(); c++)
+		//Iterates through all surrounding cells to check whether they've been visited. If not, pushed on to stack.
+		if (maze[row - 1][col].visited == false)
 		{
-			maze[0 + rand() % 2][0 + rand() % 2];
-			
-			ss << " ";
+			neighbours.push_back(maze[row - 1][col]); // Adds maze row and col spec to neighbours vector
 		}
-		ss << "\n";
+		else if (maze[row + 1][col].visited == false)
+		{
+			neighbours.push_back(maze[row + 1][col]);
+		}
+		else if (maze[row][col - 1].visited == false)
+		{
+			neighbours.push_back(maze[row][col - 1]);
+		}
+		else if (maze[row][col + 1].visited == false)
+		{
+			neighbours.push_back(maze[row][col + 1]);
+		}
+		else {
+			neighbours.pop_back();
+		} // Checks if all neighbours are visited. If so, pop from stack.
 	}
-	//cout <<' ' << stack.top();
-
-	return 0;
+			
+	return neighbours;
 }
 
 string mazegenerator::toString() // Prints everything from generate function is a format of 'B' - blocked and 'U' - Unblocked
