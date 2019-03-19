@@ -1,18 +1,10 @@
-﻿  main.cpp
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(21): error C2143: syntax error: missing ')' before 'const'
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(21): error C2660: 'mazegenerator::getUnvisitedNeighbours': function does not take 0 arguments
-  c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.h(32): note: see declaration of 'mazegenerator::getUnvisitedNeighbours'
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(21): error C2143: syntax error: missing ';' before 'const'
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(21): error C2059: syntax error: ')'
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(21): error C2530: 'tile': references must be initialized
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\main.cpp(30): warning C4129: 'E': unrecognized character escape sequence
-  mazegenerator.cpp
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(25): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(27): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(36): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(83): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(116): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\google drive\term 2\programming\final project\qk007990\maze-a2\maze-a2\mazegenerator.cpp(118): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  mazegenerator.cpp
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(24): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(26): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(36): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(38): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(222): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(224): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(101): warning C4715: 'mazegenerator::isBlocked': not all control paths return a value
+  maze-a2.vcxproj -> C:\Users\callu\Desktop\Programming practice\qk007990\maze-a2\Debug\maze-a2.exe
