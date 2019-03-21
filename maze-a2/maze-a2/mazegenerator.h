@@ -31,6 +31,8 @@ public:
 
 	vector<Tile> getUnvisitedNeighbours(const Tile& tile);
 
+	string IsVisitedTrue(int r, int c);
+
 	std::string toString();
 
 private:

@@ -14,8 +14,7 @@ int main()
 		system("cls");
 		system("color 0a");
 		char quit;
-
-		cout << "Welcome to my program\n" << endl;
+		cout << "Maze Game" << endl;
 
 		mazegenerator generator;
 		generator.Generate(rowCount, colCount);
