@@ -2,9 +2,98 @@
 c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(28): warning C4018: '<': signed/unsigned mismatch
 c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(30): warning C4018: '<': signed/unsigned mismatch
 c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(104): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(119): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(319): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(321): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(138): warning C4715: 'mazegenerator::isBlocked': not all control paths return a value
-c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(298): warning C4715: 'mazegenerator::getUnvisitedNeighbours': not all control paths return a value
-  maze-a2.vcxproj -> C:\Users\callu\Desktop\Programming practice\qk007990\maze-a2\Debug\maze-a2.exe
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(286): error C2664: 'void std::vector<Tile *,std::allocator<_Ty>>::push_back(_Ty &&)': cannot convert argument 1 from '_Ty' to 'const _Ty &'
+          with
+          [
+              _Ty=Tile *
+          ]
+          and
+          [
+              _Ty=Tile
+          ]
+          and
+          [
+              _Ty=Tile *
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(286): note: Reason: cannot convert from '_Ty' to 'const _Ty'
+          with
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(286): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(291): error C2664: 'void std::vector<Tile *,std::allocator<_Ty>>::push_back(_Ty &&)': cannot convert argument 1 from '_Ty' to 'const _Ty &'
+          with
+          [
+              _Ty=Tile *
+          ]
+          and
+          [
+              _Ty=Tile
+          ]
+          and
+          [
+              _Ty=Tile *
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(291): note: Reason: cannot convert from '_Ty' to 'const _Ty'
+          with
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(291): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(295): error C2664: 'void std::vector<Tile *,std::allocator<_Ty>>::push_back(_Ty &&)': cannot convert argument 1 from '_Ty' to 'const _Ty &'
+          with
+          [
+              _Ty=Tile *
+          ]
+          and
+          [
+              _Ty=Tile
+          ]
+          and
+          [
+              _Ty=Tile *
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(295): note: Reason: cannot convert from '_Ty' to 'const _Ty'
+          with
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(295): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(299): error C2664: 'void std::vector<Tile *,std::allocator<_Ty>>::push_back(_Ty &&)': cannot convert argument 1 from '_Ty' to 'const _Ty &'
+          with
+          [
+              _Ty=Tile *
+          ]
+          and
+          [
+              _Ty=Tile
+          ]
+          and
+          [
+              _Ty=Tile *
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(299): note: Reason: cannot convert from '_Ty' to 'const _Ty'
+          with
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(299): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(307): error C2450: switch expression of type '_Ty' is illegal
+          with
+          [
+              _Ty=Tile *
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(307): note: Integral expression required
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(314): error C2143: syntax error: missing ';' before 'case'
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(323): error C2440: 'return': cannot convert from 'std::vector<Tile *,std::allocator<_Ty>>' to 'std::vector<Tile,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Tile *
+          ]
+          and
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(323): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(346): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\qk007990\maze-a2\maze-a2\mazegenerator.cpp(348): warning C4018: '<': signed/unsigned mismatch

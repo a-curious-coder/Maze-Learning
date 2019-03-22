@@ -62,8 +62,7 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	//TEST TO CHECK NEIGHBOURS
 	
 	int row = 1;
-	int col = 1;
-
+	int col = 2;
 	Tile& tile = maze[row][col];
 	vector <Tile> neighbours = getUnvisitedNeighbours(tile);
 
@@ -100,7 +99,8 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	cout << "\n";*/
 	cout << "Number of Neighbours for [" << row << "," << col << "]: " << neighbours.size() << "\n" << endl;
 	cout << "Neighbour\tRow\tCol\tVisited" << endl;
-	
+	//neighbours.push_back(maze[row][col]);
+	maze[row][col].visited = true;
 	for (int i = 0; i < neighbours.size(); i++)
 	{
 		cout << i+1 << "\t\t" << neighbours[i].row << "\t" << neighbours[i].col << "\t";
@@ -108,17 +108,26 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 		cout << IsVisitedTrue(neighbours[i].row, neighbours[i].col) << endl;
 	}
 
+	for (int r = 0; r < getRowCount(); r++)
+	{
+		row = row + 1;
+		for (int c = 0; c < getColCount(); c++)
+		{
+			getUnvisitedNeighbours(tile);
+			cout << r << ", " << c  << "\t";
+			col = col + 1;
+		}
+		cout << "\n";
+	}
+
+
+	
+
 	cout << "\nNeighbours are represented by 'B'." << endl;
 	cout << "\n" << endl;
 	//TEST TO CHECK NEIGHBOURS
 
-	for (int r = 0; r < getRowCount(); r++)
-	{
-		for (int c = 0; c < getColCount(); c++)
-		{
-			
-		}
-	}
+	
 }
 
 bool mazegenerator::isBlocked(int row, int col) // returns whether specific cell is blocked / unblocked
@@ -152,7 +161,7 @@ vector<Tile> mazegenerator::getUnvisitedNeighbours(const Tile& tile)
 	int col = tile.col;
 
 	cout << "\n";
-	if (tile.row == 0 && tile.col == 0) // Checks if row and col is at value 0
+	/*if (tile.row == 0 && tile.col == 0) // Checks if row and col is at value 0
 	{
 		//Will check and pushback neighbours next to col 0 and below row 0
 		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
@@ -270,27 +279,50 @@ vector<Tile> mazegenerator::getUnvisitedNeighbours(const Tile& tile)
 		{
 			neighbours.pop_back();
 		} // Checks if all neighbours are visited. If so, pop from stack.
+		*/
+	
+			if (row > 0 && !maze[row - 1][col].visited) // Checks if the row is more than 0 and not visited - UP
+			{
+				neighbours.push_back(maze[row - 1][col]); // Pushes back this element.
+			}
+			if (row < getRowCount() && !maze[row + 1][col].visited) // Checks that row is less than getRowCount function value AND is not visited for that specific tile. - DOWN
+			{
+				maze[row][col].visited = true;
+				neighbours.push_back(maze[row + 1][col]);
+			}
+			if (col > 0 && !maze[row][col - 1].visited) // LEFT
+			{
+				neighbours.push_back(maze[row][col - 1]);
+			}
+			if (col < getColCount() && !maze[row][col + 1].visited) // RIGHT
+			{
+				neighbours.push_back(maze[row][col + 1]);
+			}
+			if (maze[row - 1][col].visited == true && maze[row + 1][col].visited == true && maze[row][col - 1].visited == true && maze[row][col + 1].visited == true)
+			{
+				neighbours.pop_back();
+				auto nextcell = neighbours[rand() % neighbours.size()];
 
-/*if(row > 0 && !map[row - 1][col].visited)
-{
-	neighbours.push_back(&map(row - 1, col));
-}
-if (row < map.row && !map(row + 1, col).visited)
-{
-	neighbours.push_back(& map(row + 1, col));
-}
-if (col > 0 && !map(row, col - 1).visited)
-{
-	neighbours.push_back(&map(row, col - 1));
-}
-if (col < map.colCount() - 1 && !map(row, col + 1).visited)
-{
-	neighbours.push_back(&map(row, col + 1));
-}*/
+				switch (nextcell)
+				{
+				case 0:
+					break;
+				case 1:
+					break;
+				case 2:
+					break
+				case 3:
+					break;
+				}
+			}
+			else
+			{
 
+			}
+	
 		return neighbours;
 	}
-}// DONE?
+ // DONE?
 
 string mazegenerator::IsVisitedTrue(int r, int c)
 {
@@ -325,10 +357,15 @@ string mazegenerator::toString() // Prints everything from generate function is 
 			{
 				ss << "B"; // cout blocked 'B' 
 			}
+			else if (maze[r][c].visited == true) // Else fill any space that does not meet requirements with U's
+			{
+				ss << "V";
+			}
 			else if (maze[r][c].blocked == false) // Else fill any space that does not meet requirements with U's
 			{
 				ss << "-";
 			}
+			
 
 			ss << " "; // Print space between chars.
 		}
