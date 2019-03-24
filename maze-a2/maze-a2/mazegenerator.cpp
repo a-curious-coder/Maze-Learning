@@ -15,8 +15,6 @@ mazegenerator::mazegenerator()
 
 void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' using vectors.
 {
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
 
 	// Resize origin and inner vectors to desired sizes.
 	maze.resize(rowCount);
@@ -24,48 +22,26 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	{
 		maze[i].resize(colCount);
 	}
+	int row = 1;
+	int col = 1;
+	Tile& tile = maze[row][col];
+	
 	// Set default values for Tile attributes iterating through every 'Tile'
 	for (int r = 0; r < maze.size(); r++)
 	{
 		for (int c = 0; c < maze[0].size(); c++)
 		{
-			maze[r][c].row = r;
-			maze[r][c].col = c;
-			maze[r][c].visited = false;
-			maze[r][c].blocked = false;
+			tile.row = r;
+			tile.col = c;
+			tile.visited = false;
+			tile.blocked = true;
+
 		}
 	}
-
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-
-	// Iterate through every 'Tile' and based on if statement, assign blocked and unblocked state.
-	// Should make every tile on edge of 'maze' blocked.
-	/*for (int r = 0; r < maze.size(); r++) // Iterate through rows
-	{
-		for (int c = 0; c < maze[0].size(); c++) // iterate through columns
-		{
-			if (r == 0 || c == 0 || r == getRowCount() - 1 || c == getColCount() - 1) // If row is 0, if col is 0, if row is RowCount, if col is ColCount then set maze vector at value r and c to blocked == true.
-			{
-				maze[r][c].blocked = true;
-			}
-			else 
-			{
-				maze[r][c].blocked = false;
-			}
-		}
-	}*/
-
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-
-	//TEST TO CHECK NEIGHBOURS
-	
-	int row = 1;
-	int col = 2;
-	Tile& tile = maze[row][col];
-	vector <Tile> neighbours = getUnvisitedNeighbours(tile);
-
+	vector <Tile*> neighbours = getUnvisitedNeighbours(&tile, row, col);
+	neighbours.push_back(&maze[1][1]);
+	tile.blocked = false;
+	tile.visited= false;
 	/*for (int r = 0; r < getRowCount(); r++) // Iterate through rows
 	{
 		for (int c = 0; c < getColCount(); c++) // Iterate through cols
@@ -97,35 +73,41 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 			col = col + 1;
 	}
 	cout << "\n";*/
-	cout << "Number of Neighbours for [" << row << "," << col << "]: " << neighbours.size() << "\n" << endl;
-	cout << "Neighbour\tRow\tCol\tVisited" << endl;
-	//neighbours.push_back(maze[row][col]);
-	maze[row][col].visited = true;
-	for (int i = 0; i < neighbours.size(); i++)
-	{
-		cout << i+1 << "\t\t" << neighbours[i].row << "\t" << neighbours[i].col << "\t";
-		maze[neighbours[i].row][neighbours[i].col].blocked = true;
-		cout << IsVisitedTrue(neighbours[i].row, neighbours[i].col) << endl;
-	}
-
-	for (int r = 0; r < getRowCount(); r++)
-	{
-		row = row + 1;
-		for (int c = 0; c < getColCount(); c++)
-		{
-			getUnvisitedNeighbours(tile);
-			cout << r << ", " << c  << "\t";
-			col = col + 1;
-		}
-		cout << "\n";
-	}
-
-
+	//cout << "Number of Neighbours for [" << row << "," << col << "]: " << *neighbours.size() << "\n" << endl;
+	//cout << "Neighbour\tRow\tCol\tVisited" << endl;
+	
 	
 
-	cout << "\nNeighbours are represented by 'B'." << endl;
-	cout << "\n" << endl;
-	//TEST TO CHECK NEIGHBOURS
+	while (!maze.empty())
+	{
+		//Get current tile
+		Tile thisTile = maze.front().front();
+		//Get unvisited neighbours
+
+		if (!neighbours.empty())
+		{
+			getUnvisitedNeighbours(&tile, row, col);
+			Tile nexttile = *neighbours[rand() % neighbours.size()];
+
+			// Get wall between tiles
+			int midRow = tile.row + (nexttile.row = tile.row) / 2;
+			int midCol = tile.col + (nexttile.col = tile.col) / 2;
+			Tile tileWall = maze[midRow][midCol];
+
+			// Mark neighbour and wall cells as unblocked
+			nexttile.blocked = false;
+			tileWall.blocked = false;
+
+			//Add neighbour to top of stack and mark visited
+			neighbours.push_back(&nexttile);
+			nexttile.visited = true;
+		}
+		else
+		{
+			maze.pop_back();
+		}
+	}
+	
 
 	
 }
@@ -153,172 +135,30 @@ int mazegenerator::getColCount()
 	return maze[0].size(); // Returns inner vector size
 } // DONE
 
-vector<Tile> mazegenerator::getUnvisitedNeighbours(const Tile& tile)
+vector<Tile*> mazegenerator::getUnvisitedNeighbours(const Tile* tile, int row, int col)
 {
 
-	vector<Tile> neighbours; // Vector to collect unvisited neighbours
-	int row = tile.row;
-	int col = tile.col;
+	vector<Tile*> neighbours; // Vector to collect unvisited neighbours
 
 	cout << "\n";
-	/*if (tile.row == 0 && tile.col == 0) // Checks if row and col is at value 0
-	{
-		//Will check and pushback neighbours next to col 0 and below row 0
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-		if (maze[row + 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row + 1][col]);
-			maze[row][col].visited = true;
-		}
-		if (maze[row][col + 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col + 1]);
-			maze[row][col].visited = true;
-		}
-	}
-	else if (tile.row == 0) // Checks if row is at value 0
-	{
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-		//Will check and pushback neighbours next to row 0
-		if (maze[row + 1][col].visited == false)
-			neighbours.push_back(maze[row + 1][col]);
-		maze[row][col].visited = true;
-	}
-	else if (tile.col == 0) // Checks if column is at value 0
-	{
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-		//Will check and pushback neighbours next to col 0
-		if (maze[row][col + 1].visited == false)
-			neighbours.push_back(maze[row][col + 1]);
-		maze[row][col].visited = true;
-	}
-	else if (tile.row == getRowCount() - 1) // Checks if row is at the value of RowCount
-	{
-		//Will check and pushback neighbours above row 'getRowCount()'
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-		if (maze[row - 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row - 1][col]); // Pushes the row before max row count
-			maze[row][col].visited = true;
-		}
-		if (maze[row][col - 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col - 1]); // Pushes row
-			maze[row][col].visited = true;
-		}
-		if (maze[row][col + 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col + 1]);
-			maze[row][col].visited = true;
-		}
-
-	}
-	else if (tile.col == getColCount() - 1) // Checks if column is at the value of ColCount
-	{
-		//Will check and pushback neighbours around Col except for Col + 1 because that would be +1 more than the getColCount number. E.g. if Col was 15 then it would look at 16 and throw error
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-
-		if (maze[row][col - 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col - 1]);
-			maze[row][col].visited = true;
-		}
-		if (maze[row - 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row - 1][col]);
-			maze[row][col].visited = true;
-			cout << "2";
-		}
-		if (maze[row + 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row + 1][col]);
-			maze[row][col].visited = true;
-		}
-
-	}
-	else if (tile.col == getColCount() - 1 && tile.col == getRowCount() - 1) // Checks if both row and col are at the max values.
-	{
-		if (maze[row - 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row - 1][col]);
-		}
-		else if (maze[row][col - 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col - 1]);
-
-		}
-	}
-	else
-	{
-		//Will check and pushback all other neighbours not gone over in the previous requirements
-		//cout << "Row: " << tile.row << "\tCol: " << tile.col << endl;
-		//for (int i = 0; i < getRowCount(); i++)
-		//{
-			//Iterates through all surrounding cells to check whether they've been visited. If not, pushed on to stack.
-		if (maze[row - 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row - 1][col]); // Adds maze row and col spec to neighbours vector
-			maze[row][col].visited = true;
-		}
-		if (maze[row + 1][col].visited == false)
-		{
-			neighbours.push_back(maze[row + 1][col]); //Moves tile to row below
-			maze[row][col].visited = true;
-		}
-		if (maze[row][col - 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col - 1]); // Moves tile to column 
-			maze[row][col].visited = true;
-		}
-		if (maze[row][col + 1].visited == false)
-		{
-			neighbours.push_back(maze[row][col + 1]);
-			maze[row][col].visited = true;
-		}
-		else
-		{
-			neighbours.pop_back();
-		} // Checks if all neighbours are visited. If so, pop from stack.
-		*/
 	
 			if (row > 0 && !maze[row - 1][col].visited) // Checks if the row is more than 0 and not visited - UP
 			{
-				neighbours.push_back(maze[row - 1][col]); // Pushes back this element.
+				neighbours.push_back(&maze[row - 1][col]); // Pushes back this element.
 			}
 			if (row < getRowCount() && !maze[row + 1][col].visited) // Checks that row is less than getRowCount function value AND is not visited for that specific tile. - DOWN
 			{
-				maze[row][col].visited = true;
-				neighbours.push_back(maze[row + 1][col]);
+				neighbours.push_back(&maze[row + 1][col]);
 			}
 			if (col > 0 && !maze[row][col - 1].visited) // LEFT
 			{
-				neighbours.push_back(maze[row][col - 1]);
+				neighbours.push_back(&maze[row][col - 1]);
 			}
 			if (col < getColCount() && !maze[row][col + 1].visited) // RIGHT
 			{
-				neighbours.push_back(maze[row][col + 1]);
+				neighbours.push_back(&maze[row][col +1]);
 			}
-			if (maze[row - 1][col].visited == true && maze[row + 1][col].visited == true && maze[row][col - 1].visited == true && maze[row][col + 1].visited == true)
-			{
-				neighbours.pop_back();
-				auto nextcell = neighbours[rand() % neighbours.size()];
-
-				switch (nextcell)
-				{
-				case 0:
-					break;
-				case 1:
-					break;
-				case 2:
-					break
-				case 3:
-					break;
-				}
-			}
-			else
-			{
-
-			}
+		
 	
 		return neighbours;
 	}
@@ -377,3 +217,63 @@ string mazegenerator::toString() // Prints everything from generate function is 
 	return ss.str(); // returns all values of B/U
 	system("pause");
 }
+
+
+
+
+
+// SCRAP CODE
+/*
+Generate function to find neighbour properties
+for (int i = 0; i < neighbours.size(); i++)
+	{
+		cout << i+1 << "\t\t" << neighbours[i].row << "\t" << neighbours[i].col << "\t";
+		maze[neighbours[i].row][neighbours[i].col].blocked = false;
+		auto nextcell = neighbours[rand() % neighbours.size()];
+		cout << IsVisitedTrue(neighbours[i].row, neighbours[i].col) << endl;
+	}*/
+
+
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+
+	// Iterate through every 'Tile' and based on if statement, assign blocked and unblocked state.
+	// Should make every tile on edge of 'maze' blocked.
+	/*for (int r = 0; r < maze.size(); r++) // Iterate through rows
+	{
+		for (int c = 0; c < maze[0].size(); c++) // iterate through columns
+		{
+			if (r == 0 || c == 0 || r == getRowCount() - 1 || c == getColCount() - 1) // If row is 0, if col is 0, if row is RowCount, if col is ColCount then set maze vector at value r and c to blocked == true.
+			{
+				maze[r][c].blocked = true;
+			}
+			else
+			{
+				maze[r][c].blocked = false;
+			}
+		}
+	}*/
+
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+
+/*
+for (int r = 0; r < getRowCount(); r++)
+	{
+		row = row + 1;
+		for (int c = 0; c < getColCount(); c++)
+		{
+			getUnvisitedNeighbours(&tile, row, col);
+			cout << r << ", " << c  << "\t";
+			col = col + 1;
+		}
+
+	}
+
+
+
+
+cout << "\nNeighbours are represented by 'B'." << endl;
+cout << "\n" << endl;
+//TEST TO CHECK NEIGHBOURS
+*/

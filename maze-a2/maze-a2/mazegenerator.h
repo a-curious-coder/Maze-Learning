@@ -29,7 +29,7 @@ public:
 
 	int getColCount();
 
-	vector<Tile> getUnvisitedNeighbours(const Tile& tile);
+	vector<Tile*> getUnvisitedNeighbours(const Tile* tile, int row, int col);
 
 	string IsVisitedTrue(int r, int c);
 
