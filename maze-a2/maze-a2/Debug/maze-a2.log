@@ -1,7 +1,40 @@
 ﻿  mazegenerator.cpp
 c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(30): warning C4018: '<': signed/unsigned mismatch
 c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(32): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(186): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(188): warning C4018: '<': signed/unsigned mismatch
-c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(126): warning C4715: 'mazegenerator::isBlocked': not all control paths return a value
-  maze-a2.vcxproj -> C:\Users\callu\Desktop\Programming practice\Attempt 2\Maze-Learning\maze-a2\Debug\maze-a2.exe
+c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(189): warning C4018: '<': signed/unsigned mismatch
+c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(191): warning C4018: '<': signed/unsigned mismatch
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xmemory0(881): error C2664: 'Tile::Tile(Tile &&)': cannot convert argument 1 from '_Ty' to 'const Tile &'
+          with
+          [
+              _Ty=Tile *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xmemory0(879): note: Reason: cannot convert from '_Ty' to 'const Tile'
+          with
+          [
+              _Ty=Tile *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xmemory0(879): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\deque(1134): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Tile*>(_Alloc &,_Objty *const ,Tile *&&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Tile>,
+              _Ty=Tile,
+              _Objty=Tile
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\deque(1137): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Tile*>(_Alloc &,_Objty *const ,Tile *&&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Tile>,
+              _Ty=Tile,
+              _Objty=Tile
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\stack(90): note: see reference to function template instantiation 'void std::deque<_Ty,std::allocator<_Ty>>::emplace_back<Tile*>(Tile *&&)' being compiled
+          with
+          [
+              _Ty=Tile
+          ]
+  c:\users\callu\desktop\programming practice\attempt 2\maze-learning\maze-a2\maze-a2\mazegenerator.cpp(105): note: see reference to function template instantiation 'void std::stack<Tile,std::deque<_Ty,std::allocator<_Ty>>>::emplace<Tile*>(Tile *&&)' being compiled
+          with
+          [
+              _Ty=Tile
+          ]

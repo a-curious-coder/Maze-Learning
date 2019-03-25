@@ -37,7 +37,7 @@ public:
 
 private:
 
-	vector<vector<Tile>> maze;
+	vector<vector<Tile> > maze;
 
 };
 

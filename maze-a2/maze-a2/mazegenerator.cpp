@@ -39,9 +39,11 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 		}
 	}
 	vector <Tile*> neighbours = getUnvisitedNeighbours(&tile, row, col);
-	neighbours.push_back(&maze[1][1]);
-	tile.blocked = false;
-	tile.visited= false;
+	stack<Tile> stack;
+
+	stack.push(maze[1][1]);
+	stack.top().visited = true;
+	stack.top().blocked = false;
 	/*for (int r = 0; r < getRowCount(); r++) // Iterate through rows
 	{
 		for (int c = 0; c < getColCount(); c++) // Iterate through cols
@@ -55,6 +57,7 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 			
 		}
 	}*/
+
 
 	/*cout << "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" << endl;
 	for (int r = 0; r < getRowCount(); r++)\
@@ -78,20 +81,20 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	
 	
 
-	while (!maze.empty())
+	while(!stack.empty())
 	{
 		//Get current tile
-		Tile thisTile = maze.front().front();
+		Tile thisTile = stack.top();
 		//Get unvisited neighbours
-
+		vector <Tile*> neighbours = getUnvisitedNeighbours(&tile, row, col);
 		if (!neighbours.empty())
 		{
 			getUnvisitedNeighbours(&tile, row, col);
-			Tile nexttile = *neighbours[rand() % neighbours.size()];
+			Tile nexttile = *neighbours.at(rand() % neighbours.size());
 
 			// Get wall between tiles
-			int midRow = tile.row + (nexttile.row = tile.row) / 2;
-			int midCol = tile.col + (nexttile.col = tile.col) / 2;
+			int midRow = thisTile.row + (nexttile.row = thisTile.row) / 2;
+			int midCol = thisTile.col + (nexttile.col = thisTile.col) / 2;
 			Tile tileWall = maze[midRow][midCol];
 
 			// Mark neighbour and wall cells as unblocked
@@ -99,12 +102,12 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 			tileWall.blocked = false;
 
 			//Add neighbour to top of stack and mark visited
-			neighbours.push_back(&nexttile);
+			stack.emplace(&nexttile);
 			nexttile.visited = true;
 		}
 		else
 		{
-			maze.pop_back();
+			stack.pop();
 		}
 	}
 	
@@ -142,21 +145,21 @@ vector<Tile*> mazegenerator::getUnvisitedNeighbours(const Tile* tile, int row, i
 
 	cout << "\n";
 	
-			if (row > 0 && !maze[row - 1][col].visited) // Checks if the row is more than 0 and not visited - UP
+			if (row > 2 && !maze[row - 2][col].visited) // Checks if the row is more than 0 and not visited - UP
 			{
-				neighbours.push_back(&maze[row - 1][col]); // Pushes back this element.
+				neighbours.push_back(&maze[row - 2][col]); // Pushes back this element.
 			}
-			if (row < getRowCount() && !maze[row + 1][col].visited) // Checks that row is less than getRowCount function value AND is not visited for that specific tile. - DOWN
+			if (row < getRowCount() -3 && !maze[row + 2][col].visited) // Checks that row is less than getRowCount function value AND is not visited for that specific tile. - DOWN
 			{
-				neighbours.push_back(&maze[row + 1][col]);
+				neighbours.push_back(&maze[row + 2][col]);
 			}
-			if (col > 0 && !maze[row][col - 1].visited) // LEFT
+			if (col > 2 && !maze[row][col - 2].visited) // LEFT
 			{
-				neighbours.push_back(&maze[row][col - 1]);
+				neighbours.push_back(&maze[row][col - 2]);
 			}
-			if (col < getColCount() && !maze[row][col + 1].visited) // RIGHT
+			if (col < getColCount()-3 && !maze[row][col + 2].visited) // RIGHT
 			{
-				neighbours.push_back(&maze[row][col +1]);
+				neighbours.push_back(&maze[row][col +2]);
 			}
 		
 	
