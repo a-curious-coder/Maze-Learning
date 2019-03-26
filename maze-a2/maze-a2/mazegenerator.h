@@ -15,6 +15,13 @@ struct Tile
 	bool visited;
 };
 
+struct Player
+{
+	char symbol;
+	int x;
+	int y;
+};
+
 class mazegenerator
 {
 public: 
@@ -29,11 +36,13 @@ public:
 
 	int getColCount();
 
-	vector<Tile*> getUnvisitedNeighbours(const Tile* tile, int row, int col);
+	vector<Tile*> getUnvisitedNeighbours(Tile tile);
 
 	string IsVisitedTrue(int r, int c);
 
 	std::string toString();
+
+	char KeyPress(char keypress);
 
 private:
 

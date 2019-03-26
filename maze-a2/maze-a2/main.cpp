@@ -7,28 +7,31 @@ using namespace std;
 int main()
 {
 	srand(time(NULL)); // Referral for random num generator
-	int rowCount = 15;
-	int colCount = 15;
+	int rowCount = 21;
+	int colCount = 21;
+	char keypress;
+
 	while (1)
 	{
+		// Clear screen and style
 		system("cls");
 		system("color 0a");
-		char quit;
-		cout << "Maze Game" << endl;
+		// Title of game
+		cout << "Maze Game\n" << endl;
 
+		// Declaration of mazegenerator so I can use this classes functions
 		mazegenerator generator;
-		generator.Generate(rowCount, colCount);
-		cout << generator.toString();
 
-		cin >> quit;
-		if (quit == 'Q' || quit == 'q')
-		{
-			break;
-		}
-		else 
-		{
-			system("pause");
-		}
+		// Generate function takes rowCount, colCount and generates maze
+		generator.Generate(rowCount, colCount);
+
+		//Prints a text based representation of maze based on requirements in function
+		cout << generator.toString();
+		// Depending onkeypresse, it will either generate a new maze or quit program
+
+		cin >> keypress;
+		generator.KeyPress(keypress);
+
 	}
 	
 	

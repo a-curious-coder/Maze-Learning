@@ -4,15 +4,17 @@
 #include <string>
 #include <stack>
 #include <ctime>
-#include "windows.h"
+#include <thread>
+#include <chrono>
+#include <windows.h>
 
 using namespace std;
 
 mazegenerator::mazegenerator()
 {
 
-}
 
+}
 void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' using vectors.
 {
 
@@ -22,6 +24,8 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	{
 		maze[i].resize(colCount);
 	}
+
+
 	int row = 1;
 	int col = 1;
 	Tile& tile = maze[row][col];
@@ -31,87 +35,53 @@ void mazegenerator::Generate(int rowCount, int colCount) //Generates 'maze' usin
 	{
 		for (int c = 0; c < maze[0].size(); c++)
 		{
-			tile.row = r;
-			tile.col = c;
-			tile.visited = false;
-			tile.blocked = true;
+			maze[r][c].row = r;
+			maze[r][c].col = c;
+			maze[r][c].visited = false;
+			maze[r][c].blocked = true;
 
 		}
 	}
-	vector <Tile*> neighbours = getUnvisitedNeighbours(&tile, row, col);
-	stack<Tile> stack;
 
-	stack.push(maze[1][1]);
-	stack.top().visited = true;
-	stack.top().blocked = false;
-	/*for (int r = 0; r < getRowCount(); r++) // Iterate through rows
-	{
-		for (int c = 0; c < getColCount(); c++) // Iterate through cols
-		{
-			Tile& tile = maze[r][c]; // tile = maze position r, c E.g. 0, 1
+	stack<Tile*> stack;
 
-			for (int i = 0; i < neighbours.size(); i++) // i = 0; If i is less than size of neighbours then i++
-			{
-				cout << "Neighbour " << i << ": row:" << neighbours[i].row << " col: " << neighbours[i].col << endl;
-			}
-			
-		}
-	}*/
-
-
-	/*cout << "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" << endl;
-	for (int r = 0; r < getRowCount(); r++)\
-	{
-		cout << row << "," << col << endl;
-		for (int c = 0; c < getColCount(); c++)
-		{
-			cout << "\tRow: " << r << " Col: " << c << endl;
-			
-		}
-		cout << "\n";
-
-		if(row != getRowCount())
-			row = row + 1;
-		if (col != getColCount())
-			col = col + 1;
-	}
-	cout << "\n";*/
-	//cout << "Number of Neighbours for [" << row << "," << col << "]: " << *neighbours.size() << "\n" << endl;
-	//cout << "Neighbour\tRow\tCol\tVisited" << endl;
+	//Add tile to top of stack
+	stack.push(&maze[row][col]);
+	stack.top()->visited = true;
+	stack.top()->blocked = false;
 	
-	
-
 	while(!stack.empty())
 	{
 		//Get current tile
-		Tile thisTile = stack.top();
-		//Get unvisited neighbours
-		vector <Tile*> neighbours = getUnvisitedNeighbours(&tile, row, col);
+		Tile* thisTile = stack.top();
+		
+		//Get unvisited neighbours'
+		vector <Tile*> neighbours = getUnvisitedNeighbours(*thisTile);
+
 		if (!neighbours.empty())
 		{
-			getUnvisitedNeighbours(&tile, row, col);
-			Tile nexttile = *neighbours.at(rand() % neighbours.size());
-
+			//Get unvisited neighbour Tiles
+			Tile* nexttile = neighbours[rand() % neighbours.size()];
+			
 			// Get wall between tiles
-			int midRow = thisTile.row + (nexttile.row = thisTile.row) / 2;
-			int midCol = thisTile.col + (nexttile.col = thisTile.col) / 2;
-			Tile tileWall = maze[midRow][midCol];
+			int midRow = thisTile->row + (nexttile->row - thisTile->row) / 2;
+			int midCol = thisTile->col + (nexttile->col - thisTile->col) / 2;
+			Tile* tileWall = &maze[midRow][midCol];
 
 			// Mark neighbour and wall cells as unblocked
-			nexttile.blocked = false;
-			tileWall.blocked = false;
+			nexttile->blocked = false;
+			tileWall->blocked = false;
 
 			//Add neighbour to top of stack and mark visited
-			stack.emplace(&nexttile);
-			nexttile.visited = true;
+			stack.push(nexttile);
+			nexttile->visited = true;
 		}
 		else
 		{
+			// Removes top most element | LIFO
 			stack.pop();
 		}
 	}
-	
-
 	
 }
 
@@ -138,13 +108,14 @@ int mazegenerator::getColCount()
 	return maze[0].size(); // Returns inner vector size
 } // DONE
 
-vector<Tile*> mazegenerator::getUnvisitedNeighbours(const Tile* tile, int row, int col)
+vector<Tile*> mazegenerator::getUnvisitedNeighbours(Tile tile)
 {
 
 	vector<Tile*> neighbours; // Vector to collect unvisited neighbours
 
-	cout << "\n";
-	
+	int row = tile.row;
+	int col = tile.col;
+
 			if (row > 2 && !maze[row - 2][col].visited) // Checks if the row is more than 0 and not visited - UP
 			{
 				neighbours.push_back(&maze[row - 2][col]); // Pushes back this element.
@@ -185,6 +156,7 @@ string mazegenerator::IsVisitedTrue(int r, int c)
 string mazegenerator::toString() // Prints everything from generate function is a format of 'B' - Blocked and 'U' - Unblocked
 {
 	stringstream ss;
+	ss << "Maze Game\n"<< endl;
 
 	for (int r = 0; r < maze.size(); r++) // iterates through vector size which will be the rows in the maze. 
 	{
@@ -198,85 +170,86 @@ string mazegenerator::toString() // Prints everything from generate function is 
 			 * Finally, if r (row) == getRowCount (Assigned by user) -1 will find the correct index position of rowcount and fill with B's.
 			/*/
 			{
+				
 				ss << "B"; // cout blocked 'B' 
-			}
-			else if (maze[r][c].visited == true) // Else fill any space that does not meet requirements with U's
-			{
-				ss << "V";
+				// To actually print 'B' in real time
+				cout << "B";
+				Sleep(1);
 			}
 			else if (maze[r][c].blocked == false) // Else fill any space that does not meet requirements with U's
 			{
-				ss << "-";
+
+				ss << " ";	
+				// To actually print '-' in real time
+				cout << "-";
+				Sleep(1);
 			}
-			
-
-			ss << " "; // Print space between chars.
+			// Print space between chars.
+			ss << " "; 
+			cout << " ";
+			Sleep(1);
 		}
-
 		ss << "\n"; // Print new line after every row iteration
+		cout << "\n";
+		Sleep(1);
 	}
 	ss << "\n"; // Creates new line after everything if for loops have finished to give space below last row.
-
+	cout << "\n";
+	system("cls");
 	return ss.str(); // returns all values of B/U
 	system("pause");
 }
 
 
+char mazegenerator::KeyPress(char keypress)
+{
+	Player player;
+	player.x = 1;
+	player.y = 1;
+	player.symbol = 'P';
 
-
-
-// SCRAP CODE
-/*
-Generate function to find neighbour properties
-for (int i = 0; i < neighbours.size(); i++)
+	switch (keypress)
 	{
-		cout << i+1 << "\t\t" << neighbours[i].row << "\t" << neighbours[i].col << "\t";
-		maze[neighbours[i].row][neighbours[i].col].blocked = false;
-		auto nextcell = neighbours[rand() % neighbours.size()];
-		cout << IsVisitedTrue(neighbours[i].row, neighbours[i].col) << endl;
-	}*/
-
-
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-
-	// Iterate through every 'Tile' and based on if statement, assign blocked and unblocked state.
-	// Should make every tile on edge of 'maze' blocked.
-	/*for (int r = 0; r < maze.size(); r++) // Iterate through rows
-	{
-		for (int c = 0; c < maze[0].size(); c++) // iterate through columns
+	case 'w':
+		if (maze[player.x][player.y-1].blocked = true)
 		{
-			if (r == 0 || c == 0 || r == getRowCount() - 1 || c == getColCount() - 1) // If row is 0, if col is 0, if row is RowCount, if col is ColCount then set maze vector at value r and c to blocked == true.
-			{
-				maze[r][c].blocked = true;
-			}
-			else
-			{
-				maze[r][c].blocked = false;
-			}
+			maze[player.x][player.y].blocked = false;
+			player.y--;
+			break;
 		}
-	}*/
-
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-
-/*
-for (int r = 0; r < getRowCount(); r++)
-	{
-		row = row + 1;
-		for (int c = 0; c < getColCount(); c++)
+	case 's':
+		if (maze[player.x][player.y + 1].blocked = true)
 		{
-			getUnvisitedNeighbours(&tile, row, col);
-			cout << r << ", " << c  << "\t";
-			col = col + 1;
+			maze[player.x][player.y].blocked = false;
+			player.y++;
+			break;
 		}
-
+	case 'a':
+		if (maze[player.x-1][player.y].blocked = true)
+		{
+			maze[player.x][player.y].blocked = false;
+			player.x--;
+			break;
+		}
+	case 'd':
+		if (maze[player.x+1][player.y].blocked = true)
+		{
+			maze[player.x][player.y].blocked = false;
+			player.x++;
+			break;
+		}
+	case 'q':
+		cout << "quit" << endl;
+		break;
+	
+	case 'l': 
+		// Prints out particular 'random' number for particular generated maze
+		cout << "Seed: " << time(NULL) << endl;
+		system("pause");
+		
 	}
+	
+	
+	return 'a';
+}
 
-
-
-
-cout << "\nNeighbours are represented by 'B'." << endl;
-cout << "\n" << endl;
-//TEST TO CHECK NEIGHBOURS
-*/
