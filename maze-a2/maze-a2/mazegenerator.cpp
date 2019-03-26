@@ -1,3 +1,9 @@
+#ifdef TARGET_OS_MAC
+#include <unistd.h>
+#endif
+#ifdef WINDOWS
+#include <windows.h>
+#endif
 #include "mazegenerator.h"
 #include <iostream>
 #include <sstream> 
@@ -5,8 +11,6 @@
 #include <stack>
 #include <ctime>
 #include <thread>
-#include <chrono>
-#include <windows.h>
 
 using namespace std;
 
@@ -174,7 +178,7 @@ string mazegenerator::toString() // Prints everything from generate function is 
 				ss << "B"; // cout blocked 'B' 
 				// To actually print 'B' in real time
 				cout << "B";
-				Sleep(1);
+				mySleep(1);
 			}
 			else if (maze[r][c].blocked == false) // Else fill any space that does not meet requirements with U's
 			{
@@ -182,16 +186,16 @@ string mazegenerator::toString() // Prints everything from generate function is 
 				ss << " ";	
 				// To actually print '-' in real time
 				cout << "-";
-				Sleep(1);
+				mySleep(1);
 			}
 			// Print space between chars.
 			ss << " "; 
 			cout << " ";
-			Sleep(1);
+			mySleep(1);
 		}
 		ss << "\n"; // Print new line after every row iteration
 		cout << "\n";
-		Sleep(1);
+		mySleep(1);
 	}
 	ss << "\n"; // Creates new line after everything if for loops have finished to give space below last row.
 	cout << "\n";
@@ -200,7 +204,15 @@ string mazegenerator::toString() // Prints everything from generate function is 
 	system("pause");
 }
 
-
+void mySleep(int sleepMs)
+{
+	#ifdef TARGET_OS_MAC
+		usleep(sleepMs * 1000);
+	#endif
+	#ifdef WINDOWS
+		Sleep(sleepMs);
+	#endif
+}
 char mazegenerator::KeyPress(char keypress)
 {
 	Player player;
